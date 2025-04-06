@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean notifications = sharedPref.getBoolean("notifications", false);
-        pushNotification(notifications);
+        //pushNotification(notifications);
     }
 
     private final OnFetchDataListener<NewsApiResponse> listener =
@@ -156,29 +156,5 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         }
     }
 
-    /**
-     * Sends out a notification to the user after 12 hours.
-     * @param notification The notification.
-     */
-    private void pushNotification(Boolean notification) {
-        if (notification) {
-            System.out.println("test");
-            createNotificationChannel();
-            Intent intent = new Intent(MainActivity.this, ReminderBroadcast.class);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                    MainActivity.this, 0, intent, 0);
-
-            AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-            /* Sets the amount of time before sending out the notification */
-            long timeAtCheck = System.currentTimeMillis();
-            int hours = 12;
-            long hoursInMillis = 3600000 * hours;
-
-            alarmManager.set(AlarmManager.RTC_WAKEUP,
-                    timeAtCheck + hoursInMillis,
-                    pendingIntent);
-        }
-    }
 
 }
